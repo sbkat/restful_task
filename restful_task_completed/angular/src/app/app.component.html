@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Restful Task</title>
+</head>
+
+<body>
+  <h1 class="display1">Restful Tasks API</h1>
+
+  <!-- div to add a new task -->
+  <div id="form">
+    <form (submit)="createTaskWithForm()"> 
+      <label>Title: </label>
+      <input type="text" name="title" [(ngModel)]="newTask.title">
+      <br>
+      <label>Description: </label>
+      <input type="text" name="description" [(ngModel)]="newTask.description">
+      <br>
+      <button type="submit" class="btn btn-outline-info">Submit</button>
+    </form>
+  </div>
+
+  <button (click)="showAllTasksWithClick()" class="btn btn-info">Get all tasks</button>
+
+  <!-- div to display all tasks -->
+  <div *ngFor="let task of activeTasks" id="displayAll">
+    <p>Task: {{ task.title }}</p>
+    <button (click)="showSelectedTaskWithClick(task)" class="btn btn-outline-success">Show details</button>
+    <button (click)="editTaskWithClick(task)" class="btn btn-outline-warning">Edit Task</button>
+    <button (click)="deleteTaskWithClick(task._id)" class="btn btn-outline-danger">Delete Task</button>
+  </div>
+
+  <!-- div to edit selected task -->
+  <div *ngIf="editTask" id="form">
+    <p>Edit a Task</p>
+    <form (submit)="editTaskWithForm()"> 
+        <label>Title: </label>
+        <input type="text" name="editTask.title" [(ngModel)]="editTask.title" value="editTask.title">
+        <br>
+        <label>Description: </label>
+        <input type="text" name="editTask.description" [(ngModel)]="editTask.description">
+        <br>
+        <button type="submit" class="btn btn-outline-info">Submit</button>
+      </form> 
+  </div>
+
+  <app-task *ngIf="activeTask" [taskToShow]="activeTask"></app-task>
+
+</body>
+
+</html>
